@@ -42,6 +42,16 @@ func NewSession(options ...Option) (sess *Session, err error) {
 	return sess, nil
 }
 
+// MustSession is like NewSession but panics in the cased where NewSession would return an
+// error.
+func MustSession(options ...Option) (sess *Session) {
+	sess, err := NewSession(options...)
+	if err != nil {
+		panic(err)
+	}
+	return sess
+}
+
 // Validate returns an error if the session is invalid.
 func (sess *Session) Validate() error {
 	if sess.Environment == "" {
